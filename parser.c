@@ -156,6 +156,17 @@ void parse_file ( char * filename,
 	      xvals[1], yvals[1], zvals[1]); 
        add_box(edges, xvals[0], yvals[0], zvals[0], xvals[1], yvals[1], zvals[1]);
     }
+
+    else if ( strncmp(line, "sphere", strlen(line)) == 0) {
+      fgets(line, sizeof(line), f);
+      printf("\nSPHERE\t%s", line);
+      sscanf(line, "%lf %lf %lf %lf",
+	     xvals, yvals, zvals, &r);
+      printf("%lf %lf %lf %lf", xvals[0], yvals[0], zvals[0], r);
+
+      add_sphere(edges, xvals[0], yvals[0], zvals[0], r, 1);
+    }
+					        
     else if ( strncmp(line, "scale", strlen(line)) == 0 ) {
       fgets(line, sizeof(line), f);
       //printf("SCALE\t%s", line);
