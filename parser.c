@@ -164,9 +164,20 @@ void parse_file ( char * filename,
 	     xvals, yvals, zvals, &r);
       printf("%lf %lf %lf %lf", xvals[0], yvals[0], zvals[0], r);
 
-      add_sphere(edges, xvals[0], yvals[0], zvals[0], r, 1);
+      add_sphere(edges, xvals[0], yvals[0], zvals[0], r, 1000);
     }
-					        
+
+    else if( strncmp(line, "torus", strlen(line)) == 0) {
+      double r2 = 0; 
+      fgets(line, sizeof(line), f);
+      printf("\nTORUS\t%s", line);
+      sscanf(line,"%lf %lf %lf %lf %lf",xvals,yvals,zvals,&r,&r2);
+      //printf("torus: %lf %lf %lf %lf %lf\n",xvals[0],yvals[0],zvals[0],r,r2);
+      
+      add_torus(edges,xvals[0],yvals[0],zvals[0],r,r2,step);
+      
+    }
+    
     else if ( strncmp(line, "scale", strlen(line)) == 0 ) {
       fgets(line, sizeof(line), f);
       //printf("SCALE\t%s", line);
