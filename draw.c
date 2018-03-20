@@ -73,7 +73,7 @@ void add_sphere( struct matrix * edges,
   //print_matrix(sphere_points);
   
   int col = 0;
-  printf("Sphere_points lastcol: %d",  sphere_points->lastcol); 
+  //printf("Sphere_points lastcol: %d",  sphere_points->lastcol); 
  
   for (; col < sphere_points->lastcol; col++) {
       double x = sphere_points->m[0][col];
