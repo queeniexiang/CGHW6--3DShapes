@@ -65,7 +65,8 @@ void add_box( struct matrix * edges,
 void add_sphere( struct matrix * edges, 
                  double cx, double cy, double cz,
                  double r, int step ) {
-  
+
+ 
   //printf("\nRunning add_sphere!\n");
   struct matrix * sphere_points = generate_sphere(cx, cy, cz, r, step);
 
@@ -73,7 +74,7 @@ void add_sphere( struct matrix * edges,
   
   int col = 0;
   printf("Sphere_points lastcol: %d",  sphere_points->lastcol); 
-\m 
+ 
   for (; col < sphere_points->lastcol; col++) {
       double x = sphere_points->m[0][col];
       double y = sphere_points->m[1][col];
@@ -81,6 +82,7 @@ void add_sphere( struct matrix * edges,
 
       add_edge(edges, x, y, z, x+1, y+1, z+1);
   }
+
 }
 
 /*======== void generate_sphere() ==========
@@ -97,46 +99,43 @@ void add_sphere( struct matrix * edges,
   ====================*/
 struct matrix * generate_sphere(double cx, double cy, double cz,
                                 double r, int step ) {
-  struct matrix * ret_points =  new_matrix(4, step*step);
-
-  ident(ret_points); 
-  double phi = 0;
-  double theta = 0;
-
+ 
+  struct matrix * ret_points = new_matrix(4, step * step);
+  
   double count1 = 0;
-  double count2 = 0; 
+  double count2 = 0;
 
-  //printf("Step: %d", step); 
-  for (; count1 <= step; count1 += step/100) {
-    phi = (double)count1 / step;
+  double x, y, z;
+
+  for (; count1 <= step; count1++) { 
+    double phi = (double)count1/step;
     //printf("\nPhi: %lf\n", phi);
     
-    for (; count2 <= step; count2 += step/100) {
-      theta = (double)count2 / step;
-      //printf("\nTheta: %lf\n", theta); 
+    for (count2 = 0; count2 <= step; count2++) { 
+      double theta = (double)count2/step;
+      //printf("\nTheta: %lf\n", theta);
       
-      double x = r * cos(theta * M_PI * 2) + cx;
-      double y = r * sin(theta * M_PI * 2) * cos(phi * M_PI * 2) + cy;
-      double z = r * sin(theta * M_PI * 2) * sin(phi * M_PI * 2) + cz;
-      
+      x = r * cos(theta * M_PI) + cx;
+      y = r * sin(theta * M_PI) * cos(phi * M_PI * 2) + cy;
+      z = r * sin(theta * M_PI) * sin(phi * M_PI * 2) + cz;
+
       /*
       printf("X: %lf\n", x); 
       printf("Y: %lf\n", y); 
       printf("Z: %lf\n", z);
       */
-
-      add_point(ret_points, x, y, z);
       
-      /* 
-      printf("Printing ret_points: \n"); 
-      print_matrix(ret_points);
-      */
+      add_point(ret_points,x,y,z);
     }
   }
-
+  
+  /*
   printf("Printing ret_points: \n"); 
   print_matrix(ret_points);
-  return ret_points;
+  */
+  
+  return ret_points; 
+
 }
   
 /*======== void add_torus() ==========
@@ -194,20 +193,16 @@ struct matrix * generate_torus( double cx, double cy, double cz,
   double count1 = 0;
   double count2 = 0;
 
-  double phi = 0;
-  double theta = 0;
+  for (; count1 <= step; count1++) {
+    double phi = (double)count1/step;
 
-  for (; count1 <= step; count1 += step) {
-    phi = (double)count1/step;
-
-    for (; count2 <= step; count2 += step) {
-      theta = (double)count2/step;
+    for (count2 = 0; count2 <= step; count2++) {
+      double theta = (double)count2/step;
       
       double x = cos(phi * M_PI * 2) * (r1 * cos(theta * M_PI * 2) +r2) + cx;
       double y = r1 * sin(theta * M_PI * 2) + cy;
       double z = (-1 * sin(phi * M_PI * 2)) * (r1 * cos(theta * M_PI * 2) +r2) + cz;
-
-            
+        
       /*
       printf("X: %lf\n", x); 
       printf("Y: %lf\n", y); 
@@ -223,9 +218,7 @@ struct matrix * generate_torus( double cx, double cy, double cz,
     } 
     
   }
-
-  return ret_points;
-    
+  return ret_points;    
 }
 
 /*======== void add_circle() ==========

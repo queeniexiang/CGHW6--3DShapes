@@ -147,22 +147,22 @@ void parse_file ( char * filename,
     else if ( strncmp(line, "box", strlen(line)) == 0) {
       //double x, y, z, width, height, depth;
       fgets(line, sizeof(line), f);
-      printf("BOX\t%s", line);
+      //printf("BOX\t%s", line);
       sscanf(line, "%lf %lf %lf %lf %lf %lf",
 	     xvals, yvals, zvals,
 	     xvals+1, yvals+1, zvals+1); 
-       printf("%lf %lf %lf %lf %lf %lf",
+      /* printf("%lf %lf %lf %lf %lf %lf",
 	      xvals[0], yvals[0], zvals[0],
-	      xvals[1], yvals[1], zvals[1]); 
+	      xvals[1], yvals[1], zvals[1]); */
        add_box(edges, xvals[0], yvals[0], zvals[0], xvals[1], yvals[1], zvals[1]);
     }
 
     else if ( strncmp(line, "sphere", strlen(line)) == 0) {
       fgets(line, sizeof(line), f);
-      printf("\nSPHERE\t%s", line);
+      //printf("\nSPHERE\t%s", line);
       sscanf(line, "%lf %lf %lf %lf",
 	     xvals, yvals, zvals, &r);
-      printf("%lf %lf %lf %lf", xvals[0], yvals[0], zvals[0], r);
+      //printf("%lf %lf %lf %lf", xvals[0], yvals[0], zvals[0], r);
 
       add_sphere(edges, xvals[0], yvals[0], zvals[0], r, 1000);
     }
@@ -170,7 +170,7 @@ void parse_file ( char * filename,
     else if( strncmp(line, "torus", strlen(line)) == 0) {
       double r2 = 0; 
       fgets(line, sizeof(line), f);
-      printf("\nTORUS\t%s", line);
+      //printf("\nTORUS\t%s", line);
       sscanf(line,"%lf %lf %lf %lf %lf",xvals,yvals,zvals,&r,&r2);
       //printf("torus: %lf %lf %lf %lf %lf\n",xvals[0],yvals[0],zvals[0],r,r2);
       
